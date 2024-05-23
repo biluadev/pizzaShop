@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { registerRestaurant } from "@/api/register-restaurant";
 
 const signUpForm = z.object({
     restauranteName: z.string(),
@@ -21,14 +23,23 @@ export function SignUp() {
     const navigate = useNavigate()
     const { register, handleSubmit, formState: { isSubmitting } } = useForm<SignUpForm>()
 
+    const { mutateAsync: registerRestaurantFn } = useMutation({
+        mutationFn: registerRestaurant,
+    })
+
     async function handleSignUp(data: SignUpForm) {
         try {
-            await new Promise((resolve) => setTimeout(resolve, 2000))
+            await registerRestaurantFn({
+                restaurantName: data.restauranteName,
+                managerName: data.managerName,
+                email: data.email,
+                phone: data.phone
+            })
 
             toast.success('Cadastro feito com sucesso.', {
                 action: {
                     label: 'Login',
-                    onClick: () => navigate('/sign-in'),
+                    onClick: () => navigate(`/sign-in?email=${data.email}`),
                 }
             })
 
@@ -84,11 +95,11 @@ export function SignUp() {
                         </Button>
 
                         <p className="px-6 text-center text-sm loading-relaxed text-muted-foreground">
-                            Ao continuar, você concorda com os nossos {' '}  
+                            Ao continuar, você concorda com os nossos {' '}
                             <a className="underline underline-offset-4" href="">
                                 termos de serviço
                             </a>{' '}
-                            e{' '} 
+                            e{' '}
                             <a className="underline underline-offset-4" href="">politicas de privacidade</a>.
                         </p>
                     </form>
