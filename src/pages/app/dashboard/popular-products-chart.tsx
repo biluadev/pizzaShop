@@ -13,7 +13,7 @@ import {
     PieChart,
     Cell
 } from 'recharts'
-import { BarChart } from "lucide-react";
+import { BarChart, Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { getPopularProducts } from "@/api/get-popular-products";
 
@@ -44,7 +44,7 @@ export function PopularProductsChart() {
             </CardHeader>
 
             <CardContent>
-                {popularProducts && (
+                {popularProducts ? (
                 <ResponsiveContainer width="100%" height={240}>
                     <PieChart style={{ fontSize: 12 }}>
                         <Pie
@@ -100,6 +100,10 @@ export function PopularProductsChart() {
                         </ Pie>
                     </PieChart>
                 </ResponsiveContainer>
+                ) : (
+                    <div className="flex h-[240px] w-full items-center justify-center">
+                        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground"/>
+                    </div>
                 )}
             </CardContent>
         </Card>
