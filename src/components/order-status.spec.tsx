@@ -1,5 +1,5 @@
 
-import { OrderStatus } from '@/pages/app/orders/order-status'
+import { OrderStatus } from '@/components/order-status'
 import { render } from '@testing-library/react'
 
 

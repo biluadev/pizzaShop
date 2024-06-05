@@ -27,7 +27,6 @@ export function OrderStatus({ status }: OrderStatusProps) {
             {status === 'canceled' && (
                 <span data-testid="badge" className="h-2 w-2 rounded-full bg-rose-500" />
             )}
-
             {status === 'delivered' && (
                 <span data-testid="badge" className="h-2 w-2 rounded-full bg-emerald-500" />
             )}

@@ -11,8 +11,8 @@ import { Error } from "./pages/error";
 export const router = createBrowserRouter([
     {
         path: "/",
-        errorElement: <NotFound />,
-        element: <Error />,
+        element: <AppLayout />,
+        errorElement: <Error />,
         children: [
             { path: '/', element: <Dashboard /> },
             { path: '/orders', element: <Orders /> }
